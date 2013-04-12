@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 
 	<title>Calendar generator</title>
+	<script type="text/javascript" charset="utf-8" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <style type="text/css">
   
   @font-face {
@@ -15,7 +16,7 @@
   
   body {
     font-family:'MuseoSans-100';
-    margin:20px 0 0 180px;
+    margin:20px 0 0 500px;
   }
   
     .Saturday, .Sunday {
@@ -84,7 +85,7 @@ body.w .days .line {
   position:relative;
   top:50%;
 }
-body.w .days.wide .line {
+body.w .days.wide .line, body.w .week.month-created .days.Monday .line, body.w .week:first-child .days.Monday .line {
   width:350px;
   height:3px;
   margin-left:25px;
@@ -101,20 +102,41 @@ body.w .days .number,  body.w .days .month {
   left:80px;
 }
 
-  body.w .days.wide .number {
+  body.w .days.wide .number, body.w .week.month-created .days.Monday .number, body.w .week:first-child .days.Monday .number {
     left:-40px;
   }
    body.w .days .month {
      left:-50px;
       top:30px;
-   }   
+      display:none;
+   } 
+   
+   body.w .days.wide .month, body.w .week:first-child .days.Monday .month {
+     display:block;
+   }
+   
+   body.w .week.month-created .days.Monday .month {
+      display:block;
+    }  
 
     
   </style>
+  
+  <script type="text/javascript" charset="utf-8">
+    $(function(){
+      $('.week').each(function(i,v){
+        $(v).has('div.wide').addClass('month');
+        $(v).next().removeClass('month');
+        $(v).has('div.wide.Saturday,div.wide.Sunday').removeClass('month').next().addClass('month-created');
+      });
+      
+      
+    });
+  </script>
 </head>
 <body class="w">
 <?php
-$start = mktime(0, 0, 0, 4, 1, 2013); // start monday
+$start = mktime(0, 0, 0, 4, 15, 2013); // start monday
 $end = mktime(0, 0, 0, 8, 5, 2013); // end monday
 $timeInit = array();
 $duration = $end - $start;
@@ -155,7 +177,7 @@ for($w = 0; $w < $weeks; $w++){
     <div class="days <?php echo $dayclass;?><?php echo (date('j',$addaday) == 1 ? ' wide' : ''); ?>">
       <div class="line">&nbsp;</div>
       <div class="number"><?= date('j',$addaday)?></div>
-      <?php if(date('j',$addaday) == 1 ):?><div class="month"><?= date('M',$addaday)?></div><?php endif; ?>
+      <div class="month"><?= date('M',$addaday)?></div>
     </div>
     <?php
   }
