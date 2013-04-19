@@ -74,21 +74,27 @@ body.w .week {
 
 body.w .days {
   height:20%;
-position:relative;
+  position:relative;
 }
 
 body.w .days .line {
   width:200px;
-  height:1px;
-  background:black;
-  margin:0 0 0 175px;
+  height:30px;
+  font-size:10px;
+  letter-spacing:20px;
+  /*background:black;*/
+  margin:0 0 0 250px;
   position:relative;
-  top:50%;
+  top:45%;
+  text-transform:uppercase;
 }
 body.w .days.wide .line, body.w .week.month-created .days.Monday .line, body.w .week:first-child .days.Monday .line {
-  width:350px;
-  height:3px;
+  width:450px;
+  height:10px;
   margin-left:25px;
+  background:black;
+  color:#fff;
+  padding:1px 0 0 0;
 }
 
 body.w .days .number,  body.w .days .month {
@@ -100,15 +106,17 @@ body.w .days .number,  body.w .days .month {
   position:absolute;
   top:-12px;
   left:80px;
+  font-size:30px;
 }
 
   body.w .days.wide .number, body.w .week.month-created .days.Monday .number, body.w .week:first-child .days.Monday .number {
-    left:-40px;
+    left:-70px;
   }
    body.w .days .month {
-     left:-50px;
-      top:30px;
+     left:500px;
+      top:20px;
       display:none;
+      font-size:50px;
    } 
    
    body.w .days.wide .month, body.w .week:first-child .days.Monday .month {
@@ -175,7 +183,7 @@ for($w = 0; $w < $weeks; $w++){
     $daydata = date('l M-d-Y',$addaday);
     ?>
     <div class="days <?php echo $dayclass;?><?php echo (date('j',$addaday) == 1 ? ' wide' : ''); ?>">
-      <div class="line">&nbsp;</div>
+      <div class="line"><?php echo $dayclass;?></div>
       <div class="number"><?= date('j',$addaday)?></div>
       <div class="month"><?= date('M',$addaday)?></div>
     </div>
